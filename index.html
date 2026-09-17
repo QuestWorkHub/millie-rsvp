@@ -19,6 +19,7 @@
     --serif:'Libre Baskerville',Georgia,'Times New Roman',serif;
   }
   *{box-sizing:border-box}
+  [hidden]{display:none !important}
   html,body{margin:0}
   body{
     background:var(--parchment) radial-gradient(120% 80% at 50% -10%, #fff3dc 0%, var(--parchment) 55%, var(--parchment-deep) 100%);
@@ -147,6 +148,7 @@
     <h2 id="notice-h">Heads up for parents</h2>
     <p><strong>The park will be busy, so a parent or guardian needs to stay for the party.</strong> It's a public park with an open gazebo, and we won't be able to keep tabs on every kid — we'd love for you to hang out, grab a snack, and enjoy the afternoon with us.</p>
     <p>Please count yourself (and any other adults coming along) in the <em>adults</em> number below so we plan enough food for everyone.</p>
+    <p>Questions? Email Hunt at <a href="mailto:kbeal033@gmail.com?subject=Millie%27s%20birthday">kbeal033@gmail.com</a>.</p>
   </section>
 
   <section class="card" aria-labelledby="rsvp-h">
@@ -236,17 +238,18 @@
 
   <footer>
     Good friends · Salt air · Brighter days ♡
-    <small>Questions? Reply to whoever handed you the invite.</small>
+    <small>Questions? Email <a href="mailto:kbeal033@gmail.com?subject=Millie%27s%20birthday">kbeal033@gmail.com</a>.</small>
   </footer>
 </div>
 
 <script>
   // ---- CONFIG: paste your Supabase project values here ----
-  const SUPABASE_URL = "https://bgsawqrfhtzvcnasxdhv.supabase.co/rest/v1/";          // e.g. https://abcdefghijk.supabase.co
+  const SUPABASE_URL = "https://bgsawqrfhtzvcnasxdhv.supabase.co";          // project origin (no /rest/v1)
   const SUPABASE_ANON_KEY = "sb_publishable_euBd1puhc6x8btrTJkvwTw_4nnagExD"; // Project Settings → API → anon public
   // ---------------------------------------------------------
 
-  const configured = !SUPABASE_URL.startsWith("PASTE") && !SUPABASE_ANON_KEY.startsWith("PASTE");
+  const BASE = SUPABASE_URL.replace(/\/rest\/v1\/?$/, "").replace(/\/+$/, ""); // tolerate a pasted /rest/v1/ suffix
+  const configured = !BASE.startsWith("PASTE") && !SUPABASE_ANON_KEY.startsWith("PASTE");
   const $ = (id) => document.getElementById(id);
   const headers = { "apikey": SUPABASE_ANON_KEY, "Authorization": "Bearer " + SUPABASE_ANON_KEY, "Content-Type": "application/json" };
 
@@ -281,7 +284,7 @@
   ["invitee","email","phone"].forEach(id => $(id).addEventListener("input", () => { if ($(id).classList.contains("invalid") || $("err-contact").textContent) validate(); }));
 
   async function rpc(name, body) {
-    const r = await fetch(`${SUPABASE_URL}/rest/v1/rpc/${name}`, { method: "POST", headers, body: JSON.stringify(body) });
+    const r = await fetch(`${BASE}/rest/v1/rpc/${name}`, { method: "POST", headers, body: JSON.stringify(body) });
     if (!r.ok) { let m = ""; try { m = (await r.json()).message || ""; } catch {} throw new Error(m || `HTTP ${r.status}`); }
     return r.json();
   }
@@ -326,7 +329,7 @@
     const list = $("list");
     if (!configured) { $("setup-banner").hidden = false; list.innerHTML = ""; return; }
     try {
-      const r = await fetch(`${SUPABASE_URL}/rest/v1/rsvps?select=invitee_name,children,adults,allergies,created_at,updated_at&order=created_at.desc`, { headers });
+      const r = await fetch(`${BASE}/rest/v1/rsvps?select=invitee_name,children,adults,allergies,created_at,updated_at&order=created_at.desc`, { headers });
       if (!r.ok) throw new Error(`HTTP ${r.status}`);
       const rows = await r.json();
       const sum = (k) => rows.reduce((a, x) => a + (Number(x[k]) || 0), 0);
