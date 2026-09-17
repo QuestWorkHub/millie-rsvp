@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Millie's Poguelandia RSVP</title>
+<meta name="description" content="RSVP for Millie's 11th birthday — an Outer Banks–inspired afternoon at Edmonds City Park, September 26, 2026.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Caveat:wght@500;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap">
+<style>
+  :root{
+    --parchment:#f4ead6; --parchment-deep:#e9d9b8; --paper:#fbf6ea;
+    --navy:#1c2b4a; --navy-soft:#3b4a68; --ink-muted:#6a6252;
+    --sunset:#e8894a; --sunset-deep:#c9652a; --sky:#bcd8e6; --sky-deep:#7fb1c9;
+    --drift:#6b4a2e; --ok:#2f7a4f; --warn:#a3471f;
+    --script:'Kaushan Script','Brush Script MT',cursive;
+    --hand:'Caveat','Segoe Print','Comic Sans MS',cursive;
+    --serif:'Libre Baskerville',Georgia,'Times New Roman',serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    background:var(--parchment) radial-gradient(120% 80% at 50% -10%, #fff3dc 0%, var(--parchment) 55%, var(--parchment-deep) 100%);
+    color:var(--navy); font-family:var(--serif); font-size:17px; line-height:1.55;
+    padding-inline:16px; padding-block:0 48px; min-height:100%;
+  }
+  .wrap{max-width:1040px; margin:0 auto}
+  a{color:var(--sunset-deep)}
+  h1,h2,h3{text-wrap:balance; margin:0}
+
+  /* ---------- hero ---------- */
+  .hero{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:28px; align-items:center; padding-block:36px 24px}
+  .hero-copy .eyebrow{font-family:var(--hand); font-size:1.4rem; color:var(--sunset-deep); font-weight:700; letter-spacing:.01em}
+  .hero-copy h1{font-family:var(--script); font-weight:400; font-size:clamp(2.6rem,7vw,4.4rem); line-height:1; color:var(--navy);
+    position:relative; display:inline-block; padding-inline:.15em}
+  .hero-copy h1::after{content:""; position:absolute; left:0; right:6%; bottom:-.08em; height:.22em; background:var(--sunset); opacity:.75; border-radius:40% 60% 50% 50%/60% 40% 60% 40%; transform:rotate(-1.5deg); z-index:-1}
+  .hero-copy .sub{font-family:var(--script); font-size:clamp(1.4rem,3.4vw,2rem); color:var(--navy-soft); margin-top:.35em}
+  .hero-copy p{max-width:38rem}
+  .facts{list-style:none; padding:0; margin:18px 0 0; display:grid; gap:12px}
+  .facts li{display:grid; grid-template-columns:34px 1fr; gap:12px; align-items:start}
+  .facts svg{width:30px; height:30px; margin-top:4px}
+  .facts .label{font-family:var(--script); font-size:1.25rem; color:var(--navy); position:relative; display:inline-block; padding-inline:.35em}
+  .facts .label::before{content:""; position:absolute; inset:.1em -.1em; background:var(--sky); opacity:.8; border-radius:45% 55% 50% 50%/50% 45% 55% 50%; transform:rotate(-1deg); z-index:-1}
+  .facts .value{display:block; font-weight:700}
+  .facts .value small{display:block; font-weight:400; color:var(--ink-muted); font-size:.92rem}
+  .hero-art{display:grid; grid-template-columns:1fr 1fr; gap:10px; align-items:start}
+  .hero-art img{width:100%; height:auto; display:block; border-radius:6px; box-shadow:0 8px 24px rgba(40,25,10,.22), 0 1px 0 rgba(255,255,255,.6) inset}
+  .hero-art img:first-child{transform:rotate(-2deg)}
+  .hero-art img:last-child{transform:rotate(1.5deg); margin-top:18px}
+  .hero-art figcaption{grid-column:1/-1; font-family:var(--hand); font-size:1.15rem; color:var(--ink-muted); text-align:center; margin-top:6px}
+
+  /* ---------- sections ---------- */
+  section{margin-top:28px}
+  .card{background:var(--paper); border:1px solid rgba(107,74,46,.22); border-radius:10px; padding:22px 22px 24px; box-shadow:0 6px 18px rgba(60,40,15,.10)}
+  .card h2{font-family:var(--script); font-weight:400; font-size:2rem; color:var(--navy); margin-bottom:8px}
+  .notice{border-left:6px solid var(--sunset); background:linear-gradient(90deg,#fff1df,var(--paper) 60%)}
+  .notice p{margin:.4em 0}
+  .notice strong{color:var(--sunset-deep)}
+
+  /* ---------- form ---------- */
+  form{display:grid; gap:18px; margin-top:10px}
+  .row{display:grid; grid-template-columns:1fr 1fr; gap:16px}
+  .field{display:grid; gap:6px}
+  label{font-weight:700; font-size:.95rem}
+  label .req{color:var(--sunset-deep); font-weight:400}
+  .hint{font-size:.88rem; color:var(--ink-muted); margin:0}
+  input[type=text],input[type=email],input[type=tel],textarea{
+    font:inherit; font-size:1rem; color:var(--navy); background:#fff; border:1.5px solid rgba(28,43,74,.35); border-radius:8px; padding:11px 12px; width:100%}
+  textarea{min-height:96px; resize:vertical}
+  input:focus,textarea:focus,button:focus-visible{outline:3px solid var(--sky-deep); outline-offset:2px; border-color:var(--navy)}
+  .invalid{border-color:var(--warn) !important; background:#fff6f1}
+  .err{color:var(--warn); font-size:.9rem; margin:0; min-height:1.2em}
+  .stepper{display:inline-grid; grid-template-columns:44px 64px 44px; align-items:stretch; border:1.5px solid rgba(28,43,74,.35); border-radius:8px; overflow:hidden; background:#fff}
+  .stepper button{font:inherit; font-size:1.4rem; line-height:1; border:0; background:#f1e8d6; color:var(--navy); cursor:pointer}
+  .stepper button:disabled{color:#b8ad98; cursor:not-allowed}
+  .stepper output{display:grid; place-items:center; font-weight:700; font-size:1.15rem; font-variant-numeric:tabular-nums}
+  .actions{display:flex; flex-wrap:wrap; gap:12px; align-items:center}
+  .btn{font:inherit; font-weight:700; font-size:1.05rem; padding:13px 26px; border-radius:999px; border:0; cursor:pointer; background:var(--sunset); color:#fff; box-shadow:0 4px 0 var(--sunset-deep)}
+  .btn:active{transform:translateY(2px); box-shadow:0 2px 0 var(--sunset-deep)}
+  .btn:disabled{opacity:.6; cursor:progress; transform:none}
+  .btn.secondary{background:transparent; color:var(--navy); box-shadow:none; border:1.5px solid var(--navy)}
+  .status{font-size:.98rem; margin:0}
+  .status.ok{color:var(--ok)} .status.bad{color:var(--warn)}
+  .done{display:grid; gap:10px; padding:18px; border-radius:10px; background:#eef6ee; border:1px solid #b7d6bd}
+  .done h3{font-family:var(--script); font-weight:400; font-size:1.7rem; color:var(--ok)}
+  .done dl{display:grid; grid-template-columns:auto 1fr; gap:4px 14px; margin:0}
+  .done dt{color:var(--ink-muted)} .done dd{margin:0; font-weight:700}
+
+  /* ---------- responses ---------- */
+  .totals{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin:12px 0 16px}
+  .tile{background:#fff; border:1px solid rgba(107,74,46,.2); border-radius:8px; padding:10px 12px}
+  .tile b{display:block; font-size:1.6rem; line-height:1.1; font-variant-numeric:tabular-nums}
+  .tile span{font-size:.82rem; color:var(--ink-muted); text-transform:uppercase; letter-spacing:.06em}
+  .list{display:grid; gap:10px; margin:0; padding:0; list-style:none}
+  .entry{display:grid; grid-template-columns:1fr auto; gap:6px 14px; background:#fff; border:1px solid rgba(107,74,46,.18); border-left:5px solid var(--sky-deep); border-radius:8px; padding:12px 14px}
+  .entry.has-allergy{border-left-color:var(--sunset)}
+  .entry .who{font-weight:700}
+  .entry .when{font-size:.82rem; color:var(--ink-muted); text-align:right; white-space:nowrap}
+  .entry .counts{grid-column:1/-1; display:flex; gap:14px; flex-wrap:wrap; font-size:.95rem}
+  .entry .counts span b{font-variant-numeric:tabular-nums}
+  .entry .allergy{grid-column:1/-1; font-size:.95rem; color:var(--sunset-deep)}
+  .entry .allergy::before{content:"Allergies: "; font-weight:700}
+  .muted{color:var(--ink-muted)}
+  .setup{background:#fff3df; border:1px dashed var(--sunset-deep); border-radius:8px; padding:12px 14px; font-size:.95rem; margin-top:12px}
+  code{font-family:ui-monospace,Menlo,Consolas,monospace; font-size:.9em; background:#f1e8d6; padding:1px 5px; border-radius:4px}
+  footer{margin-top:36px; text-align:center; font-family:var(--hand); font-size:1.3rem; color:var(--navy-soft)}
+  footer small{display:block; font-family:var(--serif); font-size:.8rem; color:var(--ink-muted); margin-top:6px}
+
+  @media (max-width:760px){
+    .hero{grid-template-columns:1fr; padding-block:24px 8px}
+    .hero-art{order:-1; max-width:520px; margin:0 auto}
+    .row{grid-template-columns:1fr}
+    .totals{grid-template-columns:repeat(2,minmax(0,1fr))}
+  }
+  @media (prefers-reduced-motion:reduce){ *{transition:none !important; animation:none !important} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="hero-copy">
+      <div class="eyebrow">You're invited to</div>
+      <h1>Poguelandia</h1>
+      <div class="sub">Millie's 11th Birthday · P4L ♡</div>
+      <p>An Outer Banks–inspired afternoon of sunshine, adventure, and good friends. Same crew, different adventures.</p>
+      <ul class="facts">
+        <li>
+          <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="6" fill="none" stroke="#c9652a" stroke-width="2"/><g stroke="#c9652a" stroke-width="2" stroke-linecap="round"><path d="M16 3v4M16 25v4M3 16h4M25 16h4M6.8 6.8l2.8 2.8M22.4 22.4l2.8 2.8M6.8 25.2l2.8-2.8M22.4 9.6l2.8-2.8"/></g></svg>
+          <div><span class="label">When:</span><span class="value">Saturday, September 26, 2026<small>12:00 PM – 4:00 PM</small></span></div>
+        </li>
+        <li>
+          <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 29s-9-9.4-9-16a9 9 0 0 1 18 0c0 6.6-9 16-9 16z" fill="#6b4a2e"/><circle cx="16" cy="13" r="3.5" fill="#f4ead6"/></svg>
+          <div><span class="label">Where:</span><span class="value">Edmonds City Park Gazebo<small>600 3rd Ave S, Edmonds, WA 98020</small></span></div>
+        </li>
+      </ul>
+    </div>
+    <figure class="hero-art">
+      <img src="invite-front.jpg" alt="Invitation front: Welcome to Poguelandia, Millie's 11th Birthday, a boat at sunset by a lighthouse" width="711" height="1103">
+      <img src="invite-details.jpg" alt="Invitation details: Join us for Millie's 11th Birthday, September 26th 2026, 12–4 PM, Edmonds City Park Gazebo" width="711" height="1103">
+      <figcaption>Life is better here ♡</figcaption>
+    </figure>
+  </header>
+
+  <section class="card notice" aria-labelledby="notice-h">
+    <h2 id="notice-h">Heads up for parents</h2>
+    <p><strong>The park will be busy, so a parent or guardian needs to stay for the party.</strong> It's a public park with an open gazebo, and we won't be able to keep tabs on every kid — we'd love for you to hang out, grab a snack, and enjoy the afternoon with us.</p>
+    <p>Please count yourself (and any other adults coming along) in the <em>adults</em> number below so we plan enough food for everyone.</p>
+  </section>
+
+  <section class="card" aria-labelledby="rsvp-h">
+    <h2 id="rsvp-h">RSVP</h2>
+    <p class="muted" style="margin:0 0 4px">Takes about a minute. If you need to change your answer later, come back and submit again with the same email or phone — it updates your RSVP instead of adding a second one.</p>
+
+    <form id="rsvp-form" novalidate>
+      <div class="field">
+        <label for="invitee">Who was this invitation given to? <span class="req">(required)</span></label>
+        <input type="text" id="invitee" name="invitee" autocomplete="off" placeholder="The name written on the invite — usually your kid's name" required>
+        <p class="err" id="err-invitee"></p>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label for="email">Your email</label>
+          <input type="email" id="email" name="email" autocomplete="email" inputmode="email" placeholder="you@example.com">
+          <p class="err" id="err-email"></p>
+        </div>
+        <div class="field">
+          <label for="phone">Your phone</label>
+          <input type="tel" id="phone" name="phone" autocomplete="tel" inputmode="tel" placeholder="(425) 555-0123">
+          <p class="err" id="err-phone"></p>
+        </div>
+      </div>
+      <p class="hint" id="contact-hint" style="margin-top:-8px">Give at least one — email or phone. This is also how we keep each family to one RSVP.</p>
+      <p class="err" id="err-contact"></p>
+
+      <div class="row">
+        <div class="field">
+          <label id="lbl-children">Children attending</label>
+          <div class="stepper" role="group" aria-labelledby="lbl-children">
+            <button type="button" data-step="-1" data-for="children" aria-label="One fewer child">−</button>
+            <output id="children" aria-live="polite">1</output>
+            <button type="button" data-step="1" data-for="children" aria-label="One more child">+</button>
+          </div>
+          <p class="hint">Millie's friend plus any siblings, 0–10.</p>
+        </div>
+        <div class="field">
+          <label id="lbl-adults">Adults attending</label>
+          <div class="stepper" role="group" aria-labelledby="lbl-adults">
+            <button type="button" data-step="-1" data-for="adults" aria-label="One fewer adult">−</button>
+            <output id="adults" aria-live="polite">1</output>
+            <button type="button" data-step="1" data-for="adults" aria-label="One more adult">+</button>
+          </div>
+          <p class="hint">At least one adult needs to stay, 1–10.</p>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="allergies">Any allergies in your group?</label>
+        <textarea id="allergies" name="allergies" placeholder="Leave blank if none. Otherwise tell us who and what — e.g. “Ava — tree nuts, Dad — shellfish.”"></textarea>
+      </div>
+
+      <div class="actions">
+        <button class="btn" type="submit" id="submit-btn">Send RSVP</button>
+        <p class="status" id="form-status" role="status" aria-live="polite"></p>
+      </div>
+    </form>
+
+    <div class="done" id="done" hidden>
+      <h3 id="done-title">You're on the list!</h3>
+      <dl>
+        <dt>Invite for</dt><dd id="done-invitee"></dd>
+        <dt>Children</dt><dd id="done-children"></dd>
+        <dt>Adults</dt><dd id="done-adults"></dd>
+        <dt>Allergies</dt><dd id="done-allergies"></dd>
+      </dl>
+      <p class="muted" style="margin:0">Need to change something? <button type="button" class="btn secondary" id="edit-btn" style="padding:8px 16px;font-size:.95rem">Edit my RSVP</button></p>
+    </div>
+  </section>
+
+  <section class="card" aria-labelledby="resp-h">
+    <h2 id="resp-h">Who's coming</h2>
+    <p class="muted" style="margin:0">Live list of RSVPs so far. Refreshes when you reopen the page.</p>
+    <div class="totals" id="totals">
+      <div class="tile"><b id="t-families">–</b><span>Families</span></div>
+      <div class="tile"><b id="t-children">–</b><span>Children</span></div>
+      <div class="tile"><b id="t-adults">–</b><span>Adults</span></div>
+      <div class="tile"><b id="t-allergies">–</b><span>With allergies</span></div>
+    </div>
+    <ul class="list" id="list"><li class="muted">Loading…</li></ul>
+    <div class="setup" id="setup-banner" hidden>
+      <strong>Not connected yet.</strong> Open <code>index.html</code> and fill in <code>SUPABASE_URL</code> and <code>SUPABASE_ANON_KEY</code> at the top of the script, then run the migration in Supabase. Until then the form can't save anything.
+    </div>
+  </section>
+
+  <footer>
+    Good friends · Salt air · Brighter days ♡
+    <small>Questions? Reply to whoever handed you the invite.</small>
+  </footer>
+</div>
+
+<script>
+  // ---- CONFIG: paste your Supabase project values here ----
+  const SUPABASE_URL = "https://bgsawqrfhtzvcnasxdhv.supabase.co/rest/v1/";          // e.g. https://abcdefghijk.supabase.co
+  const SUPABASE_ANON_KEY = "sb_publishable_euBd1puhc6x8btrTJkvwTw_4nnagExD"; // Project Settings → API → anon public
+  // ---------------------------------------------------------
+
+  const configured = !SUPABASE_URL.startsWith("PASTE") && !SUPABASE_ANON_KEY.startsWith("PASTE");
+  const $ = (id) => document.getElementById(id);
+  const headers = { "apikey": SUPABASE_ANON_KEY, "Authorization": "Bearer " + SUPABASE_ANON_KEY, "Content-Type": "application/json" };
+
+  // Steppers: constraints shown up front (disabled buttons at limits), never a rejection after.
+  const limits = { children: [0, 10], adults: [1, 10] };
+  function setCount(name, v) {
+    const [lo, hi] = limits[name]; v = Math.min(hi, Math.max(lo, v));
+    $(name).value = v; $(name).textContent = v;
+    document.querySelector(`[data-for="${name}"][data-step="-1"]`).disabled = v <= lo;
+    document.querySelector(`[data-for="${name}"][data-step="1"]`).disabled = v >= hi;
+  }
+  document.querySelectorAll(".stepper button").forEach(b => b.addEventListener("click", () => setCount(b.dataset.for, Number($(b.dataset.for).textContent) + Number(b.dataset.step))));
+  setCount("children", 1); setCount("adults", 1);
+
+  const normPhone = (s) => (s || "").replace(/\D/g, "").replace(/^1(?=\d{10}$)/, "");
+  const normEmail = (s) => (s || "").trim().toLowerCase();
+
+  function showErr(id, msg) { $("err-" + id).textContent = msg || ""; const f = $(id); if (f) f.classList.toggle("invalid", !!msg); }
+
+  function validate() {
+    let ok = true;
+    const invitee = $("invitee").value.trim();
+    showErr("invitee", invitee ? "" : "Tell us whose name is on the invite so we can match you up.");
+    ok = ok && !!invitee;
+    const email = normEmail($("email").value), phone = normPhone($("phone").value);
+    showErr("email", ""); showErr("phone", ""); showErr("contact", "");
+    if (!email && !phone) { showErr("contact", "Add an email or a phone number — either one works."); ok = false; }
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showErr("email", "That email doesn't look complete — check for a missing @ or domain."); ok = false; }
+    if ($("phone").value.trim() && phone.length !== 10) { showErr("phone", "Use a 10-digit US number, like (425) 555-0123."); ok = false; }
+    return ok;
+  }
+  ["invitee","email","phone"].forEach(id => $(id).addEventListener("input", () => { if ($(id).classList.contains("invalid") || $("err-contact").textContent) validate(); }));
+
+  async function rpc(name, body) {
+    const r = await fetch(`${SUPABASE_URL}/rest/v1/rpc/${name}`, { method: "POST", headers, body: JSON.stringify(body) });
+    if (!r.ok) { let m = ""; try { m = (await r.json()).message || ""; } catch {} throw new Error(m || `HTTP ${r.status}`); }
+    return r.json();
+  }
+
+  $("rsvp-form").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (!validate()) { document.querySelector(".invalid, #err-contact:not(:empty)")?.scrollIntoView({ block: "center", behavior: "smooth" }); return; }
+    const status = $("form-status"); status.className = "status";
+    if (!configured) { status.className = "status bad"; status.textContent = "This page isn't connected to its database yet — the host still needs to finish setup."; return; }
+    const payload = {
+      p_invitee: $("invitee").value.trim(),
+      p_email: normEmail($("email").value) || null,
+      p_phone: normPhone($("phone").value) || null,
+      p_children: Number($("children").textContent),
+      p_adults: Number($("adults").textContent),
+      p_allergies: $("allergies").value.trim() || null
+    };
+    $("submit-btn").disabled = true; status.textContent = "Sending…";
+    try {
+      const res = await rpc("submit_rsvp", payload);
+      if (res.status === "conflict") { status.className = "status bad"; status.textContent = res.message; return; }
+      status.textContent = "";
+      $("done-title").textContent = res.status === "updated" ? "Your RSVP is updated!" : "You're on the list!";
+      $("done-invitee").textContent = payload.p_invitee;
+      $("done-children").textContent = payload.p_children;
+      $("done-adults").textContent = payload.p_adults;
+      $("done-allergies").textContent = payload.p_allergies || "None listed";
+      $("rsvp-form").hidden = true; $("done").hidden = false;
+      $("done").scrollIntoView({ block: "center", behavior: "smooth" });
+      loadResponses();
+    } catch (err) {
+      status.className = "status bad";
+      status.textContent = "Couldn't send your RSVP (" + err.message + "). Check your connection and try again — nothing was saved.";
+    } finally { $("submit-btn").disabled = false; }
+  });
+  $("edit-btn").addEventListener("click", () => { $("done").hidden = true; $("rsvp-form").hidden = false; $("invitee").focus(); });
+
+  function esc(s) { return String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])); }
+  function fmtWhen(iso) { try { return new Date(iso).toLocaleString("en-US", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" }); } catch { return ""; } }
+
+  async function loadResponses() {
+    const list = $("list");
+    if (!configured) { $("setup-banner").hidden = false; list.innerHTML = ""; return; }
+    try {
+      const r = await fetch(`${SUPABASE_URL}/rest/v1/rsvps?select=invitee_name,children,adults,allergies,created_at,updated_at&order=created_at.desc`, { headers });
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      const rows = await r.json();
+      const sum = (k) => rows.reduce((a, x) => a + (Number(x[k]) || 0), 0);
+      $("t-families").textContent = rows.length; $("t-children").textContent = sum("children"); $("t-adults").textContent = sum("adults");
+      $("t-allergies").textContent = rows.filter(x => x.allergies).length;
+      if (!rows.length) { list.innerHTML = '<li class="muted">No RSVPs yet — be the first crew member aboard.</li>'; return; }
+      list.innerHTML = rows.map(x => `
+        <li class="entry${x.allergies ? " has-allergy" : ""}">
+          <span class="who">${esc(x.invitee_name)}</span>
+          <span class="when">${esc(fmtWhen(x.updated_at || x.created_at))}</span>
+          <span class="counts"><span>Children: <b>${Number(x.children)}</b></span><span>Adults: <b>${Number(x.adults)}</b></span></span>
+          ${x.allergies ? `<span class="allergy">${esc(x.allergies)}</span>` : ""}
+        </li>`).join("");
+    } catch (err) {
+      list.innerHTML = `<li class="muted">Couldn't load the list right now (${esc(err.message)}). Your RSVP still goes through — try refreshing in a minute.</li>`;
+    }
+  }
+  loadResponses();
+</script>
+</body>
+</html>
