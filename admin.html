@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Poguelandia Guest List</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Libre+Baskerville:wght@400;700&display=swap">
+<style>
+  :root{
+    --parchment:#f4ead6; --paper:#fbf6ea; --navy:#1c2b4a; --navy-soft:#3b4a68; --ink-muted:#6a6252;
+    --sunset:#e8894a; --sunset-deep:#c9652a; --sky:#bcd8e6; --sky-deep:#7fb1c9; --ok:#2f7a4f; --warn:#a3471f;
+    --script:'Kaushan Script','Brush Script MT',cursive;
+    --serif:'Libre Baskerville',Georgia,'Times New Roman',serif;
+    --ui:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  }
+  *{box-sizing:border-box}
+  [hidden]{display:none !important}
+  html,body{margin:0}
+  body{background:var(--parchment); color:var(--navy); font-family:var(--ui); font-size:16px; line-height:1.5; padding:0 16px 48px}
+  .wrap{max-width:1000px; margin:0 auto}
+  h1{font-family:var(--script); font-weight:400; font-size:clamp(2rem,6vw,2.8rem); margin:24px 0 2px; line-height:1.1}
+  .sub{color:var(--ink-muted); margin:0 0 16px}
+  a{color:var(--sunset-deep)}
+  .card{background:var(--paper); border:1px solid rgba(107,74,46,.22); border-radius:10px; padding:20px; box-shadow:0 6px 18px rgba(60,40,15,.10)}
+  label{display:block; font-weight:700; font-size:.95rem; margin-bottom:6px}
+  input{font:inherit; color:var(--navy); background:#fff; border:1.5px solid rgba(28,43,74,.35); border-radius:8px; padding:11px 12px; width:100%}
+  input:focus,button:focus-visible,a:focus-visible{outline:3px solid var(--sky-deep); outline-offset:2px}
+  .field{margin-bottom:14px}
+  .pw{position:relative}
+  .pw input{padding-right:70px}
+  .pw button{position:absolute; right:6px; top:50%; transform:translateY(-50%); font:inherit; font-size:.85rem; background:none; border:0; color:var(--navy-soft); cursor:pointer; padding:6px 8px; text-decoration:underline}
+  .btn{font:inherit; font-weight:700; padding:11px 22px; border-radius:999px; border:0; cursor:pointer; background:var(--sunset); color:#fff; box-shadow:0 3px 0 var(--sunset-deep)}
+  .btn:disabled{opacity:.6; cursor:progress}
+  .btn.ghost{background:#fff; color:var(--navy); box-shadow:none; border:1.5px solid rgba(28,43,74,.4); font-weight:600; padding:8px 14px; font-size:.92rem}
+  .msg{margin:10px 0 0; min-height:1.3em; font-size:.95rem}
+  .msg.bad{color:var(--warn)} .msg.ok{color:var(--ok)}
+  #login{max-width:420px}
+  .bar{display:flex; flex-wrap:wrap; gap:8px; align-items:center; justify-content:space-between; margin-bottom:14px}
+  .bar .who{color:var(--ink-muted); font-size:.92rem}
+  .tools{display:flex; flex-wrap:wrap; gap:8px}
+  .totals{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin-bottom:14px}
+  .tile{background:#fff; border:1px solid rgba(107,74,46,.2); border-radius:8px; padding:10px 12px}
+  .tile b{display:block; font-size:1.5rem; line-height:1.1; font-variant-numeric:tabular-nums}
+  .tile span{font-size:.78rem; color:var(--ink-muted); text-transform:uppercase; letter-spacing:.06em}
+  .search{margin-bottom:12px}
+  .list{list-style:none; margin:0; padding:0; display:grid; gap:10px}
+  .g{background:#fff; border:1px solid rgba(107,74,46,.18); border-left:5px solid var(--sky-deep); border-radius:8px; padding:12px 14px; display:grid; gap:6px}
+  .g.flag{border-left-color:var(--sunset)}
+  .g .top{display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap}
+  .g .name{font-weight:700; font-size:1.05rem}
+  .g .when{font-size:.8rem; color:var(--ink-muted)}
+  .g .contact{display:flex; flex-wrap:wrap; gap:6px 18px}
+  .g .contact a{font-weight:600; word-break:break-all}
+  .g .contact .none{color:var(--ink-muted); font-style:italic}
+  .g .counts{font-size:.93rem; color:var(--navy-soft)}
+  .g .note{font-size:.93rem; background:#fbf2e4; border-radius:6px; padding:6px 10px; white-space:pre-wrap}
+  .g .note b{color:var(--sunset-deep)}
+  .toast{position:fixed; left:50%; bottom:20px; transform:translateX(-50%); background:var(--navy); color:#fff; padding:10px 18px; border-radius:999px; font-size:.95rem; box-shadow:0 6px 18px rgba(0,0,0,.25); max-width:calc(100% - 32px)}
+  @media (max-width:640px){ .totals{grid-template-columns:repeat(2,minmax(0,1fr))} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Poguelandia guest list</h1>
+  <p class="sub">Host view — every RSVP with email and phone so you can reach families. <a href="./">Back to the invite</a></p>
+
+  <!-- Sign in -->
+  <section class="card" id="login" aria-labelledby="login-h">
+    <h2 id="login-h" style="margin:0 0 12px;font-size:1.1rem">Host sign-in</h2>
+    <form id="login-form" novalidate>
+      <div class="field">
+        <label for="li-email">Email</label>
+        <input type="email" id="li-email" autocomplete="username" inputmode="email" required>
+      </div>
+      <div class="field">
+        <label for="li-pass">Password</label>
+        <div class="pw">
+          <input type="password" id="li-pass" autocomplete="current-password" required>
+          <button type="button" id="pw-toggle" aria-controls="li-pass" aria-pressed="false">Show</button>
+        </div>
+      </div>
+      <button class="btn" type="submit" id="li-btn">Sign in</button>
+      <p class="msg" id="li-msg" role="status" aria-live="polite"></p>
+    </form>
+  </section>
+
+  <!-- Guest list -->
+  <section id="admin" hidden aria-labelledby="admin-h">
+    <h2 id="admin-h" class="sr" style="position:absolute;left:-9999px">Guest list</h2>
+    <div class="bar">
+      <span class="who" id="who"></span>
+      <div class="tools">
+        <button class="btn ghost" id="refresh" type="button">Refresh</button>
+        <button class="btn ghost" id="signout" type="button">Sign out</button>
+      </div>
+    </div>
+    <div class="totals">
+      <div class="tile"><b id="t-fam">–</b><span>Families</span></div>
+      <div class="tile"><b id="t-kids">–</b><span>Children</span></div>
+      <div class="tile"><b id="t-adults">–</b><span>Adults</span></div>
+      <div class="tile"><b id="t-notes">–</b><span>With notes</span></div>
+    </div>
+    <div class="tools" style="margin-bottom:12px">
+      <button class="btn ghost" id="copy-emails" type="button">Copy all emails</button>
+      <button class="btn ghost" id="copy-phones" type="button">Copy all phone numbers</button>
+      <a class="btn ghost" id="mail-all" href="#" style="text-decoration:none">Email everyone (BCC)</a>
+      <button class="btn ghost" id="csv" type="button">Download CSV</button>
+    </div>
+    <div class="search">
+      <label for="q" style="font-weight:600">Find a family</label>
+      <input type="search" id="q" placeholder="Name, email, or phone">
+    </div>
+    <ul class="list" id="list"><li>Loading…</li></ul>
+    <p class="msg" id="list-msg" role="status" aria-live="polite"></p>
+  </section>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script>
+  const SUPABASE_URL = "https://bgsawqrfhtzvcnasxdhv.supabase.co";
+  const SUPABASE_ANON_KEY = "sb_publishable_euBd1puhc6x8btrTJkvwTw_4nnagExD";
+  const HOST_EMAIL = "kbeal033@gmail.com";
+  const EVENT_SUBJECT = "Millie's birthday — Civic Park, Sat 9/26, 1–4 PM";
+
+  const BASE = SUPABASE_URL.replace(/\/+$/, "");
+  const $ = (id) => document.getElementById(id);
+  const KEY = "poguelandia-admin-session";
+  let session = null, rows = [];
+
+  const store = {
+    get() { try { return JSON.parse(sessionStorage.getItem(KEY) || "null"); } catch { return null; } },
+    set(v) { try { v ? sessionStorage.setItem(KEY, JSON.stringify(v)) : sessionStorage.removeItem(KEY); } catch {} }
+  };
+
+  function toast(t) { const el = $("toast"); el.textContent = t; el.hidden = false; clearTimeout(toast.h); toast.h = setTimeout(() => el.hidden = true, 2600); }
+  function esc(s) { return String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])); }
+  const fmtPhone = (p) => (p && p.length === 10) ? `(${p.slice(0,3)}) ${p.slice(3,6)}-${p.slice(6)}` : (p || "");
+  const fmtWhen = (iso) => { try { return new Date(iso).toLocaleString("en-US", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" }); } catch { return ""; } };
+
+  async function auth(body, grant) {
+    const r = await fetch(`${BASE}/auth/v1/token?grant_type=${grant}`, {
+      method: "POST", headers: { apikey: SUPABASE_ANON_KEY, "Content-Type": "application/json" }, body: JSON.stringify(body)
+    });
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(j.error_description || j.msg || j.message || `HTTP ${r.status}`);
+    return { access_token: j.access_token, refresh_token: j.refresh_token, expires_at: Date.now() + (j.expires_in || 3600) * 1000, email: j.user?.email || "" };
+  }
+
+  async function freshToken() {
+    if (session && Date.now() > session.expires_at - 60000) {
+      session = await auth({ refresh_token: session.refresh_token }, "refresh_token"); store.set(session);
+    }
+    return session.access_token;
+  }
+
+  // ---- sign in ----
+  $("pw-toggle").addEventListener("click", () => {
+    const i = $("li-pass"), show = i.type === "password";
+    i.type = show ? "text" : "password"; $("pw-toggle").textContent = show ? "Hide" : "Show"; $("pw-toggle").setAttribute("aria-pressed", show);
+  });
+
+  $("login-form").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const email = $("li-email").value.trim().toLowerCase(), password = $("li-pass").value, msg = $("li-msg");
+    msg.className = "msg";
+    if (!email || !password) { msg.className = "msg bad"; msg.textContent = "Enter both your email and password."; return; }
+    $("li-btn").disabled = true; msg.textContent = "Signing in…";
+    try {
+      session = await auth({ email, password }, "password"); store.set(session);
+      $("li-pass").value = ""; msg.textContent = "";
+      showAdmin();
+    } catch (err) {
+      msg.className = "msg bad";
+      msg.textContent = /invalid login/i.test(err.message)
+        ? "That email and password don't match. Check for typos (the password is case-sensitive) and try again."
+        : /not confirmed/i.test(err.message)
+          ? "This account isn't confirmed yet. In Supabase → Authentication → Users, confirm the user, then try again."
+          : "Couldn't sign in (" + err.message + "). Check your connection and try again.";
+    } finally { $("li-btn").disabled = false; }
+  });
+
+  $("signout").addEventListener("click", () => {
+    const t = session?.access_token; session = null; store.set(null); rows = [];
+    if (t) fetch(`${BASE}/auth/v1/logout`, { method: "POST", headers: { apikey: SUPABASE_ANON_KEY, Authorization: "Bearer " + t } }).catch(() => {});
+    $("admin").hidden = true; $("login").hidden = false; $("li-msg").className = "msg ok"; $("li-msg").textContent = "Signed out."; $("li-email").focus();
+  });
+
+  function showAdmin() {
+    $("login").hidden = true; $("admin").hidden = false;
+    $("who").textContent = "Signed in as " + (session.email || HOST_EMAIL);
+    load();
+  }
+
+  // ---- data ----
+  async function load() {
+    const list = $("list"), msg = $("list-msg"); msg.className = "msg"; msg.textContent = "Loading…";
+    try {
+      const token = await freshToken();
+      const r = await fetch(`${BASE}/rest/v1/rpc/admin_rsvps`, {
+        method: "POST", headers: { apikey: SUPABASE_ANON_KEY, Authorization: "Bearer " + token, "Content-Type": "application/json" }, body: "{}"
+      });
+      const j = await r.json().catch(() => null);
+      if (!r.ok) {
+        const m = (j && j.message) || `HTTP ${r.status}`;
+        if (r.status === 401 || /JWT|expired/i.test(m)) { session = null; store.set(null); $("admin").hidden = true; $("login").hidden = false;
+          $("li-msg").className = "msg bad"; $("li-msg").textContent = "Your session ended — sign in again to see the list."; return; }
+        if (/admin_rsvps/.test(m) && /find|exist/i.test(m)) throw new Error("the admin_rsvps function isn't in the database yet — run supabase/002_notes_admin.sql");
+        throw new Error(m);
+      }
+      rows = j || []; render(); msg.textContent = "Updated " + new Date().toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" }) + ".";
+    } catch (err) {
+      list.innerHTML = ""; msg.className = "msg bad"; msg.textContent = "Couldn't load the guest list: " + err.message + ".";
+    }
+  }
+
+  function render() {
+    const q = $("q").value.trim().toLowerCase(), qd = q.replace(/\D/g, "");
+    const shown = rows.filter(x => !q || (x.invitee_name || "").toLowerCase().includes(q) || (x.email || "").includes(q) || (qd && (x.phone || "").includes(qd)));
+    const sum = (k) => rows.reduce((a, x) => a + (Number(x[k]) || 0), 0);
+    $("t-fam").textContent = rows.length; $("t-kids").textContent = sum("children"); $("t-adults").textContent = sum("adults");
+    $("t-notes").textContent = rows.filter(x => x.notes).length;
+    const emails = [...new Set(rows.map(x => x.email).filter(Boolean))];
+    $("mail-all").href = "mailto:?bcc=" + encodeURIComponent(emails.join(",")) + "&subject=" + encodeURIComponent(EVENT_SUBJECT);
+    $("mail-all").setAttribute("aria-disabled", String(!emails.length));
+    if (!rows.length) { $("list").innerHTML = "<li>No RSVPs yet.</li>"; return; }
+    if (!shown.length) { $("list").innerHTML = `<li>No family matches “${esc(q)}”. <button class="btn ghost" type="button" onclick="document.getElementById('q').value='';render()">Clear search</button></li>`; return; }
+    $("list").innerHTML = shown.map(x => `
+      <li class="g${x.notes || x.allergies ? " flag" : ""}">
+        <div class="top"><span class="name">${esc(x.invitee_name)}</span><span class="when">${esc(fmtWhen(x.updated_at || x.created_at))}</span></div>
+        <div class="contact">
+          ${x.email ? `<a href="mailto:${esc(x.email)}?subject=${encodeURIComponent(EVENT_SUBJECT)}">${esc(x.email)}</a>` : `<span class="none">no email</span>`}
+          ${x.phone ? `<a href="tel:+1${esc(x.phone)}">${esc(fmtPhone(x.phone))}</a> <a href="sms:+1${esc(x.phone)}">Text</a>` : `<span class="none">no phone</span>`}
+        </div>
+        <div class="counts">Children: <b>${Number(x.children)}</b> · Adults: <b>${Number(x.adults)}</b></div>
+        ${x.allergies ? `<div class="note"><b>Allergies:</b> ${esc(x.allergies)}</div>` : ""}
+        ${x.notes ? `<div class="note"><b>Questions / Notes:</b> ${esc(x.notes)}</div>` : ""}
+      </li>`).join("");
+  }
+  $("q").addEventListener("input", render);
+  $("refresh").addEventListener("click", load);
+
+  async function copy(text, label) {
+    if (!text) { toast("No " + label + " to copy yet."); return; }
+    try { await navigator.clipboard.writeText(text); toast("Copied " + text.split(/[,\n]/).length + " " + label + "."); }
+    catch { window.prompt("Copy these " + label + ":", text); }
+  }
+  $("copy-emails").addEventListener("click", () => copy([...new Set(rows.map(x => x.email).filter(Boolean))].join(", "), "emails"));
+  $("copy-phones").addEventListener("click", () => copy([...new Set(rows.map(x => x.phone).filter(Boolean))].map(fmtPhone).join(", "), "phone numbers"));
+  $("mail-all").addEventListener("click", (e) => { if ($("mail-all").getAttribute("aria-disabled") === "true") { e.preventDefault(); toast("No emails on the list yet."); } });
+
+  $("csv").addEventListener("click", () => {
+    if (!rows.length) { toast("Nothing to download yet."); return; }
+    const cols = ["invitee_name","email","phone","children","adults","allergies","notes","created_at","updated_at"];
+    const cell = (v) => `"${String(v ?? "").replace(/"/g, '""')}"`;
+    const csv = [cols.join(","), ...rows.map(x => cols.map(c => cell(c === "phone" ? fmtPhone(x.phone) : x[c])).join(","))].join("\r\n");
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob(["﻿" + csv], { type: "text/csv" }));
+    a.download = "millie-rsvps.csv"; document.body.appendChild(a); a.click(); a.remove();
+    toast("Downloaded millie-rsvps.csv");
+  });
+
+  // ---- start ----
+  session = store.get();
+  if (session?.refresh_token) showAdmin(); else { $("li-email").value = HOST_EMAIL; $("li-pass").focus(); }
+</script>
+</body>
+</html>
